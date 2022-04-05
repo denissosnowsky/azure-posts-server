@@ -1,0 +1,14 @@
+{
+  "name": "azure-posts",
+  "version": "1.0.0",
+  "description": "",
+  "scripts": {
+    "start": "func start",
+    "test": "echo \"No tests yet...\""
+  },
+  "dependencies": {
+    "azure-middleware": "^1.0.1",
+    "azure-storage": "^2.10.7",
+    "joi": "^17.6.0"
+  }
+}
