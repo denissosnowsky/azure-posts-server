@@ -1,40 +1,26 @@
-const { updateEntity } = require('../services/tableService')
+const Joi = require('joi')
+const MiddlewareHander = require('azure-middleware')
+const updatePostHandler = require('./handler.js')
+const { validateBody } = require('../middleware/validator')
 
-module.exports = async function (context, req) {
-  try {
-    if (!req.body) {
-      context.res = {
-        status: 500,
-        body: 'Please pass a request body',
-      }
-      return
-    }
+const schema = Joi.object().keys({
+  title: Joi.string(),
+  content: Joi.string(),
+})
 
-    const { title, content } = req.body
-
-    if (!title && !content) {
-      context.res = {
-        status: 500,
-        body: 'Please pass a title or content',
-      }
-    }
-
-    const { blog, id } = context.bindingData
-
-    const entity = {
-      PartitionKey: { _: blog },
-      RowKey: { _: id.toString() },
-    }
-
-    if (title) entity.title = { _: title};
-    if (content) entity.content = { _: content};
-
-    await updateEntity('Posts', entity);
-
-  } catch (error) {
+const updatePost = new MiddlewareHander()
+  .use((context) => {
+    validateBody(context, context.req.body, schema);
+    context.next();
+  })
+  .use(updatePostHandler)
+  .catch((error, context) => {
     context.res = {
       status: 500,
       body: error.message,
     }
-  }
-}
+    context.done()
+  })
+  .listen()
+
+module.exports = updatePost
