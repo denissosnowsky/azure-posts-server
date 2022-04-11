@@ -12,6 +12,8 @@ const createPostHandler = async (context) => {
       title: { _: title },
       content: { _: content },
       userId: { _: userId },
+      userName: { _: context.req.user.name },
+      userPhoto: { _: context.req.user.photo },
     }
 
     const resultPost = await insertEntity('Posts', entityPost)
