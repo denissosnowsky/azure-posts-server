@@ -35,7 +35,7 @@ const createPostHandler = async (context) => {
     }
 
     context.res = {
-      body: [{ post: resultPost, user: resultUser }],
+      body: { post: resultPost, user: resultUser },
     }
     context.done()
   } catch (error) {
