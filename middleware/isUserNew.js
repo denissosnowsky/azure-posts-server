@@ -13,7 +13,7 @@ exports.isUserNew = async (context) => {
 
     if (resultUserData.value.length > 0) {
       context.req.user.isNew = false
-      context.req.user.photo = resultUserData.value.userPhoto
+      context.req.user.photo = resultUserData.value[0].photo
     } else {
       const blob = await fetch(
         `https://graph.microsoft.com/v1.0/users/${context.req.body.userId}/photo/$value`,
