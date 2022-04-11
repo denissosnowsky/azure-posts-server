@@ -26,6 +26,7 @@ const createPostHandler = async (context) => {
         RowKey: { _: new Date().getTime().toString() },
         name: { _: context.req.user.name },
         photo: { _: context.req.user.photo },
+        email: {_: context.req.user.preferred_username}
       }
 
       resultUser = await insertEntity('Users', entityUser)
