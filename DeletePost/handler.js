@@ -1,9 +1,7 @@
-const { updateEntity } = require('../services/tableService')
+const { deleteEntity } = require('../services/tableService')
 
-const updatePostHandler = async (context) => {
+const deletePostHandler = async (context) => {
   try {
-    const { title, content } = context.req.body
-
     const { blog, id } = context.bindingData
 
     const entity = {
@@ -11,12 +9,9 @@ const updatePostHandler = async (context) => {
       RowKey: { _: id.toString() },
     }
 
-    if (title) entity.title = { _: title }
-    if (content) entity.content = { _: content }
+    await deleteEntity('Posts', entity)
 
-    await updateEntity('Posts', entity)
-
-    context.done()
+    context.next()
   } catch (error) {
     context.res = {
       status: 500,
@@ -33,4 +28,4 @@ const updatePostHandler = async (context) => {
   }
 }
 
-module.exports = updatePostHandler
+module.exports = deletePostHandler
