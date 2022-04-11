@@ -3,11 +3,9 @@ const { queryEntities } = require('../services/tableService');
 
 module.exports = async function (context, req) {
   try {
-    const { blog, id } = context.bindingData;
+    const query = new azure.TableQuery();
 
-    const query = new azure.TableQuery().where("PartitionKey eq ? and RowKey eq ?", blog, id.toString());
-
-    const result = await queryEntities("Posts", query);
+    const result = await queryEntities("Users", query);
 
     context.res = {
       body: result,
