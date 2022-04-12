@@ -36,7 +36,7 @@ exports.isUserNew = async (context) => {
         const arrayBuffer = await blob.arrayBuffer()
         const buffer = Buffer.from(arrayBuffer)
         const fileNameWithUrl = fileStorageUserPhotoUrl + fileName + sasToken
-        context.req.user.photo = fileNameWithUrl
+        context.req.user.photo = fileNameWithUrl+'sssssss'
         await uploadFile(buffer, fileName)
       } else {
         context.req.user.photo = 'No Photo'
