@@ -9,8 +9,6 @@ const { isMyPost } = require('../middleware/isMyPost')
 const schema = Joi.object().keys({
   title: Joi.string(),
   content: Joi.string(),
-  userId: Joi.string().required(),
-  accessToken: Joi.string().required(),
 })
 
 const updatePost = new MiddlewareHander()

@@ -5,9 +5,8 @@ exports.authMiddleware = (context) => {
     return next()
   }
   try {
-    const { accessToken, userId } = context.req.body
 
-    if (!context.req.headers.authorization || !accessToken || !userId) {
+    if (!context.req.headers.authorization) {
         context.res = {
           status: 401,
           body: 'Authorization error',

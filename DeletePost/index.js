@@ -6,11 +6,6 @@ const { validateBody } = require('../middleware/validator')
 const { authMiddleware } = require('../middleware/authMiddleware')
 const { isMyPost } = require('../middleware/isMyPost')
 
-const schema = Joi.object().keys({
-  userId: Joi.string().required(),
-  accessToken: Joi.string().required(),
-})
-
 const deletePost = new MiddlewareHander()
   .use((context) => {
     validateBody(context, context.req.body, schema);
