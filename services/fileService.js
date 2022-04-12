@@ -37,49 +37,4 @@ const uploadFile = async (buffer, fileName) => {
   }
 }
 
-const queryEntities = (tableName, query) => {
-  return new Promise((resolve, reject) => {
-    tableSvc.queryEntities(
-      tableName,
-      query,
-      null,
-      { payloadFormat: 'application/json;odata=nometadata' },
-      (error, result, response) => {
-        if (error) {
-          reject(error)
-        } else {
-          resolve(response.body)
-        }
-      },
-    )
-  })
-}
-
-const updateEntity = (tableName, entity) => {
-  return new Promise((resolve, reject) => {
-    tableSvc.mergeEntity(tableName, entity, (error, result, response) => {
-      if (error) {
-        reject(error)
-      } else {
-        resolve()
-      }
-    })
-  })
-}
-
-const deleteEntity = (tableName, entity) => {
-  return new Promise((resolve, reject) => {
-    tableSvc.deleteEntity(tableName, entity, (error, result, response) => {
-      if (error) {
-        reject(error)
-      } else {
-        resolve()
-      }
-    })
-  })
-}
-
 exports.uploadFile = uploadFile
-exports.queryEntities = queryEntities
-exports.updateEntity = updateEntity
-exports.deleteEntity = deleteEntity
