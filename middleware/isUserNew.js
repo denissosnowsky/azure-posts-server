@@ -4,9 +4,6 @@ const { uploadFile } = require('../services/fileService')
 const fetch = require('node-fetch')
 
 exports.isUserNew = async (context) => {
-  const fileStorageUserPhotoUrl =
-    'https://storageapilalala.file.core.windows.net/posts/users/'
-  const sasToken = process.env.SAS_TOKEN
 
   try {
     const queryUserData = new azure.TableQuery().where(
@@ -35,8 +32,7 @@ exports.isUserNew = async (context) => {
         const fileName = `${context.req.body.userId}.png`
         const arrayBuffer = await blob.arrayBuffer()
         const buffer = Buffer.from(arrayBuffer)
-        const fileNameWithUrl = fileStorageUserPhotoUrl + fileName + sasToken
-        context.req.user.photo = fileNameWithUrl+'sssssss'
+        context.req.user.photo = fileName
         await uploadFile(buffer, fileName)
       } else {
         context.req.user.photo = 'No Photo'
