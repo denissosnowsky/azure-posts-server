@@ -7,10 +7,6 @@ const { authMiddleware } = require('../middleware/authMiddleware')
 const { isMyPost } = require('../middleware/isMyPost')
 
 const deletePost = new MiddlewareHander()
-  .use((context) => {
-    validateBody(context, context.req.body, schema);
-    context.next();
-  })
   .use(authMiddleware)
   .use(isMyPost)
   .use(deletePostHandler)
